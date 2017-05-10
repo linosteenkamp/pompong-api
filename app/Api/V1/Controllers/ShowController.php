@@ -13,9 +13,11 @@ class ShowController extends BaseController
     public function index()
     {
         try {
-            $shows = Show::orderby('status', 'asc')
+            $shows = Show::with('genres', 'seasons', 'seasons.users')
+                ->orderby('status', 'asc')
                 ->orderby('show_name', 'asc')
                 ->get();
+
             return $this->collection($shows, new ShowTransformer);
         } catch (JWTException $e) {
             return response()->json(['error' => 'could not get genres'], 500);

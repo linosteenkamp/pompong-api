@@ -4,6 +4,7 @@
 /public/img/shows
 /public/files
 /storage/*.key
+storage/clockwork/
 /vendor
 /.idea
 /.vagrant

@@ -18,6 +18,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \pompong\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \Clockwork\Support\Laravel\ClockworkMiddleware::class,
         \Barryvdh\Cors\HandleCors::class,
     ];
 
