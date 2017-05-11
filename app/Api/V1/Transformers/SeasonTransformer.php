@@ -21,7 +21,6 @@ class SeasonTransformer extends TransformerAbstract
     {
         return [
             "id" => $season->id,
-//            "show_id" => $season->show_id,
             "season" => $season->season,
             "file_size" => $season->file_size,
        ];

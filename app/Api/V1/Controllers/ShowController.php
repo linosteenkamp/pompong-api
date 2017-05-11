@@ -13,8 +13,7 @@ class ShowController extends BaseController
     public function index()
     {
         try {
-            $shows = Show::with('genres', 'seasons', 'seasons.users')
-                ->orderby('status', 'asc')
+            $shows = Show::orderby('status', 'asc')
                 ->orderby('show_name', 'asc')
                 ->get();
 

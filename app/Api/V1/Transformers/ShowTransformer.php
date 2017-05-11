@@ -15,7 +15,7 @@ use pompong\Models\Show;
 class ShowTransformer extends TransformerAbstract
 {
     protected $defaultIncludes = [
-        'seasons',
+        'seasons.users' => 'seasons',
         'genres'
     ];
 
