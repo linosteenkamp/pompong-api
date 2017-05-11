@@ -19,7 +19,7 @@ class ShowController extends BaseController
 
             return $this->collection($shows, new ShowTransformer);
         } catch (JWTException $e) {
-            return response()->json(['error' => 'could not get genres'], 500);
+            return response()->json(['error' => 'could not get shows'], 500);
         }
     }
 }
