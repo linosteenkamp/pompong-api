@@ -37,7 +37,7 @@ class SeasonsFile
         foreach ($data as $line) {
             preg_match('/(^.+)(?=\/)/', $line, $matches);
             fwrite($metaFile, 'test -d "' . $matches[0] . '" || mkdir "' . $matches[0] .
-                '" &&  rsync -vadr --delete --exclude-from="$1/Exclude.txt" --delete-excluded ' .
+                '" &&  rsync -vadr --exclude-from="$1/Exclude.txt" --delete-excluded ' .
                 '"$1/' . $line . '" "$2/' . $matches[0] . '/"' . PHP_EOL);
         }
         fclose($metaFile);
