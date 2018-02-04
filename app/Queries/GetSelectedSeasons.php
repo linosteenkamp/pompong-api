@@ -23,7 +23,7 @@ class GetSelectedSeasons
           WHERE
             season_user.user_id=" . $userId . "
             AND episodes.season = seasons.season
-            AND episodes.status = 'Downloaded'
+            AND episodes.status in ('Downloaded', 'Archived')
         "));
     }
 }
