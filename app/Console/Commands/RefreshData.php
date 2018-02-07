@@ -115,8 +115,12 @@ class RefreshData extends Command
         $response = $client->request('GET', '?cmd=shows');
 
         $data = json_decode($response->getBody(), true);
+        
+        $show_ids = array();
 
         foreach ($data['data'] as $value) {
+            array_push($show_ids, $value['tvdbid']);
+            
             $response = $client->request('GET', '?cmd=show&tvdbid='.$value['tvdbid']);
             $showData = json_decode($response->getBody(), true);
 
@@ -141,6 +145,8 @@ class RefreshData extends Command
                 $show->save();
             }
         }
+        Show::whereNotIn('id', $show_ids)->delete();
+        
     }
 
     private function getGenres($genres, &$show)
