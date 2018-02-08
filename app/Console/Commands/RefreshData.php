@@ -2,6 +2,7 @@
 
 namespace pompong\Console\Commands;
 
+use pompong\Services\SickRage;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use pompong\Models\Show;
@@ -13,7 +14,7 @@ class RefreshData extends Command
      *
      * @var string
      */
-    protected $signature = 'pompong:refresh-data';
+    protected $signature = 'pompong:load-data';
 
     /**
      * The console command description.
@@ -27,9 +28,13 @@ class RefreshData extends Command
      *
      * @return void
      */
+
+    private $sickRage;
+
     public function __construct()
     {
         parent::__construct();
+        $this->sickRage = new SickRage();
     }
 
     /**
@@ -39,8 +44,8 @@ class RefreshData extends Command
      */
     public function handle()
     {
-//        $this->getSickBeardShows();
-        $this->augmentShows();
+        $this->getSickBeardShows();
+//        $this->augmentShows();
     }
 
     private function augmentShows()
@@ -110,19 +115,24 @@ class RefreshData extends Command
 
     private function getSickBeardShows()
     {
-        $client = new Client(['base_uri' => 'http://'. getenv('POMPONG_SIKBEARD_ADDRESS') .'/api/'. getenv('POMPONG_SICKBEARD_APIKEY') .'/']);
+//        $client = new Client(['base_uri' => 'http://'. getenv('POMPONG_SIKBEARD_ADDRESS') .'/api/'. getenv('POMPONG_SICKBEARD_APIKEY') .'/']);
 
-        $response = $client->request('GET', '?cmd=shows');
+//        $response = $client->request('GET', '?cmd=shows');
+//
+//        $data = json_decode($response->getBody(), true);
 
-        $data = json_decode($response->getBody(), true);
-        
+        $data = $this->sickRage->getShows();
         $show_ids = array();
+
+//        dd($data);
 
         foreach ($data['data'] as $value) {
             array_push($show_ids, $value['tvdbid']);
-            
-            $response = $client->request('GET', '?cmd=show&tvdbid='.$value['tvdbid']);
-            $showData = json_decode($response->getBody(), true);
+
+//            $response = $client->request('GET', '?cmd=show&tvdbid='.$value['tvdbid']);
+//            $showData = json_decode($response->getBody(), true);
+
+            $showData = $this->sickRage->getShow($value['tvdbid']);
 
             echo("Updating " . $value['show_name'] . "\r\n");
             if (! array_key_exists('error_msg', $showData['data'])) {
@@ -166,19 +176,22 @@ class RefreshData extends Command
 
     private function getEpisodes($maxSeason, $tvdbid)
     {
-        $client = new Client(['base_uri' => 'http://'. getenv('POMPONG_SIKBEARD_ADDRESS') .'/api/'. getenv('POMPONG_SICKBEARD_APIKEY') .'/']);
+//        $client = new Client(['base_uri' => 'http://'. getenv('POMPONG_SIKBEARD_ADDRESS') .'/api/'. getenv('POMPONG_SICKBEARD_APIKEY') .'/']);
 
         for ($i=1; $i <= $maxSeason; $i++) {
-            $response = $client->request('GET', '?cmd=show.seasons&tvdbid='. $tvdbid . '&season=' . $i);
-            $seasonData = json_decode($response->getBody(), true);
+//            $response = $client->request('GET', '?cmd=show.seasons&tvdbid='. $tvdbid . '&season=' . $i);
+//            $seasonData = json_decode($response->getBody(), true);
+            $seasonData = $this->sickRage->getSeasons($tvdbid, $i);
 
             foreach ($seasonData['data'] as $key => $value) {
 
-                $response = $client->request(
-                    'GET',
-                    '?cmd=episode&tvdbid='. $tvdbid . '&season=' . $i . '&episode='. $key .'&full_path=1'
-                );
-                $episodeData = json_decode($response->getBody(), true);
+//                $response = $client->request(
+//                    'GET',
+//                    '?cmd=episode&tvdbid='. $tvdbid . '&season=' . $i . '&episode='. $key .'&full_path=1'
+//                );
+//                $episodeData = json_decode($response->getBody(), true);
+
+                $episodeData = $this->sickRage->getEpisode($tvdbid, $i, $key);
 
 
                 $episode = Episode::firstOrNew([
