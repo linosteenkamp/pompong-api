@@ -63,6 +63,8 @@ class RefreshData extends Command
 
             $tvShow = $this->theTvDb->getSeries($show->id);
 
+            if ( ! $tvShow ) { continue; };
+
             if (gettype($tvShow['Series']['Overview']) == "string") {
                 $show->overview = $tvShow['Series']['Overview'];
             }
