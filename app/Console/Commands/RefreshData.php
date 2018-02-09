@@ -19,6 +19,7 @@ class RefreshData extends Command
      */
 
     private $sickRage;
+    private $theTvDb;
 
 
     /**
@@ -38,6 +39,7 @@ class RefreshData extends Command
     {
         parent::__construct();
         $this->sickRage = new SickRage();
+        $this->theTvDb = new TheTvDb();
     }
 
     /**
@@ -54,29 +56,12 @@ class RefreshData extends Command
     private function augmentShows()
     {
         $shows = Show::orderBy('show_name')->get();
-//        $client = new Client();
 
         foreach($shows as $show) {
 
             echo("Augmenting " . $show->show_name . "\r\n");
 
-//            $res = $client->request(
-//                'GET',
-//                'http://thetvdb.com/api/'. getenv('POMPONG_THETVDB_APIKEY') .'/series/' . $show->id . '/en.xml',
-//                ['http_errors' => false]
-//            );
-//
-//            if ($res->getStatusCode() == 200) {
-//                $body = $res->getBody();
-//                $stringBody = (string) $body;
-//                $xml = simplexml_load_string($stringBody);
-//                $json = json_encode($xml);
-//                $tvShow = json_decode($json,TRUE);
-//            } else {
-//                continue;
-//            }
-
-            $tvShow = TheTvDb::getSeries($show->id);
+            $tvShow = $this->theTvDb->getSeries($show->id);
 
             if (gettype($tvShow['Series']['Overview']) == "string") {
                 $show->overview = $tvShow['Series']['Overview'];
