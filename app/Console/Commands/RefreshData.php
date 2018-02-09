@@ -6,6 +6,8 @@ use pompong\Services\SickRage;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use pompong\Models\Show;
+use pompong\Models\Genre;
+use pompong\Models\Episode;
 
 class RefreshData extends Command
 {
