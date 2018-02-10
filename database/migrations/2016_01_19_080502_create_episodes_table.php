@@ -21,7 +21,7 @@ class CreateEpisodesTable extends Migration
             $table->string('status');
             $table->string('airdate');
             $table->text('description');
-            $table->integer('file_size');
+            $table->bigInteger('file_size');
             $table->string('location');
             $table->timestamps();
         });
