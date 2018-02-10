@@ -44,4 +44,16 @@ class SickRage
         return json_decode($response->getBody(), true);
     }
 
+    public function getHistory() {
+        $response = $this->client->request('GET', '?cmd=history&limit=10&type=downloaded');
+
+        return json_decode($response->getBody(), true);
+    }
+
+    public function clearHistory() {
+        $response = $this->client->request('GET', '?cmd=history.clear');
+
+        return json_decode($response->getBody(), true);
+    }
+
 }

@@ -4,7 +4,7 @@ namespace pompong\Console\Commands;
 
 use pompong\Models\Show;
 
-class RefreshData extends LoadData
+class LoadShows extends LoadData
 {
     /**
      * Create a new command instance.
@@ -17,14 +17,14 @@ class RefreshData extends LoadData
      *
      * @var string
      */
-    protected $signature = 'pompong:refresh-data';
+    protected $signature = 'pompong:load-shows';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Rrefresh show data from SickBeard';
+    protected $description = 'Full (re)load of all SickBeard shows into pompong';
 
     public function __construct()
     {

@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \pompong\Console\Commands\RefreshData::class,
+        Commands\LoadShows::class,
+        Commands\UpdateShows::class
     ];
 
     /**

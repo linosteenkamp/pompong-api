@@ -66,17 +66,19 @@ class LoadData extends Command
     protected function updateShow($showId) {
         $showData = $this->sickRage->getShow($showId);
 
-        echo("Updating " . $showData['show_name'] . "\r\n");
+//        var_dump( $showData['data']['show_name'] );
+
+        echo("Updating " . $showData['data']['show_name'] . "\r\n");
         if (! array_key_exists('error_msg', $showData['data'])) {
             $show = Show::firstOrNew(['id' => $showId]);
 
-            $show->id = $showData['tvdbid'];
-            $show->lang  = $showData['language'];
-            $show->network = $showData['network'];
-            $show->quality = $showData['quality'];
-            $show->show_name = $showData['show_name'];
-            $show->status = $showData['status'];
-            $show->tvdb_id = $showData['tvdbid'];
+            $show->id = $showData['data']['tvdbid'];
+            $show->lang  = $showData['data']['language'];
+            $show->network = $showData['data']['network'];
+            $show->quality = $showData['data']['quality'];
+            $show->show_name = $showData['data']['show_name'];
+            $show->status = $showData['data']['status'];
+            $show->tvdb_id = $showData['data']['tvdbid'];
             $show->image_url = '';
             $show->overview = '';
             $show->location = $showData['data']['location'];
