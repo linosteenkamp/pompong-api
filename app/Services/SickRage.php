@@ -45,7 +45,7 @@ class SickRage
     }
 
     public function getHistory() {
-        $response = $this->client->request('GET', '?cmd=history&limit=10&type=downloaded');
+        $response = $this->client->request('GET', '?cmd=history&limit=0&type=downloaded');
 
         return json_decode($response->getBody(), true);
     }
