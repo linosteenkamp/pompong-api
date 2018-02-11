@@ -98,6 +98,8 @@ class LoadData extends Command
 
         $tvShow = $this->theTvDb->getSeries($showId);
 
+        var_dump($tvShow);
+
         if ( ! $tvShow ) { return false; };
 
         if (gettype($tvShow['Series']['Overview']) == "string") {
@@ -125,7 +127,7 @@ class LoadData extends Command
     {
         $fileName = basename($url);
         $temp = explode(".", $fileName);
-        $fileName = 'img/shows/' . $show_id . '.' . end($temp);
+        $fileName = $show_id . '.' . end($temp);
 
         return $fileName;
     }
@@ -134,7 +136,7 @@ class LoadData extends Command
     {
         $client = new Client();
         $res = $client->request('GET', $fromUrl);
-        $myFile = fopen('public/' . $toFile, "w+");
+        $myFile = fopen(getenv('POMPONG_IMAGE_FOLDER') . $toFile, "w+");
         fwrite($myFile, $res->getBody());
         fclose($myFile);
 
