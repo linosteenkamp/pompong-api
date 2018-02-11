@@ -66,8 +66,6 @@ class LoadData extends Command
     protected function updateShow($showId) {
         $showData = $this->sickRage->getShow($showId);
 
-//        var_dump( $showData['data']['show_name'] );
-
         echo("Updating " . $showData['data']['show_name'] . "\r\n");
         if (! array_key_exists('error_msg', $showData['data'])) {
             $show = Show::firstOrNew(['id' => $showId]);
@@ -84,12 +82,14 @@ class LoadData extends Command
             $show->location = $showData['data']['location'];
             $show->max_season = $showData['data']['season_list'][0];
 
-            $this->getGenres($showData['data']['genre'], $show);
             $this->getEpisodes($showData['data']['season_list'][0], $showId);
+            $this->getGenres($showData['data']['genre'], $show);
             $this->augmentShow($showId, $show);
 
             $show->save();
         }
+
+        return true;
     }
 
     protected function augmentShow($showId, &$show)
@@ -97,8 +97,6 @@ class LoadData extends Command
         echo("Augmenting " . $show->show_name . "\r\n");
 
         $tvShow = $this->theTvDb->getSeries($showId);
-
-        var_dump($tvShow);
 
         if ( ! $tvShow ) { return false; };
 
@@ -109,8 +107,6 @@ class LoadData extends Command
         if (gettype($tvShow['Series']['banner']) == "string") {
             $show->image_url = $this->getImage('http://thetvdb.com/banners/' . $tvShow['Series']['banner'], $show->id);
         }
-
-//        $show->save();
 
         return true;
     }
