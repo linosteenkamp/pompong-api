@@ -123,9 +123,8 @@ class LoadData extends Command
     {
         $fileName = basename($url);
         $temp = explode(".", $fileName);
-        $fileName = $show_id . '.' . end($temp);
 
-        return $fileName;
+        return 'img/shows/' . $show_id . '.' . end($temp);
     }
 
     protected function copyRemote($fromUrl, $toFile)
