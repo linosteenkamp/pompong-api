@@ -38,7 +38,7 @@ class UpdateShows extends LoadData
     public function handle()
     {
         $data = $this->sickRage->getHistory();
-//        $this->sickRage->clearHistory();
+        $this->sickRage->clearHistory();
 
         foreach ($data['data'] as $value) {
             if (Show::where('id', '=', $value['tvdbid'])->exists()) {
