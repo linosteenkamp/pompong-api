@@ -92,7 +92,7 @@ class LoadData extends Command
         return true;
     }
 
-    protected function augmentShow($showId, &$show)
+    private function augmentShow($showId, &$show)
     {
         echo("Augmenting " . $show->show_name . "\r\n");
 
@@ -111,7 +111,7 @@ class LoadData extends Command
         return true;
     }
 
-    protected function getImage($url, $show_id)
+    private function getImage($url, $show_id)
     {
         $fileName = $this->getFileName($url, $show_id);
         $this->copyRemote($url, $fileName);
@@ -119,7 +119,7 @@ class LoadData extends Command
         return $fileName;
     }
 
-    protected function getFileName($url, $show_id)
+    private function getFileName($url, $show_id)
     {
         $fileName = basename($url);
         $temp = explode(".", $fileName);
@@ -127,7 +127,7 @@ class LoadData extends Command
         return 'img/shows/' . $show_id . '.' . end($temp);
     }
 
-    protected function copyRemote($fromUrl, $toFile)
+    private function copyRemote($fromUrl, $toFile)
     {
         $client = new Client();
         $res = $client->request('GET', $fromUrl);
@@ -138,7 +138,7 @@ class LoadData extends Command
         return true;
     }
 
-    protected function getGenres($genres, &$show)
+    private function getGenres($genres, &$show)
     {
         $showGenres = [];
 
@@ -153,7 +153,7 @@ class LoadData extends Command
         $show->genres()->sync($showGenres);
     }
 
-    protected function getEpisodes($maxSeason, $tvdbid)
+    private function getEpisodes($maxSeason, $tvdbid)
     {
         for ($season_no=1; $season_no <= $maxSeason; $season_no++) {
             $seasonData = $this->sickRage->getSeasons($tvdbid, $season_no);
