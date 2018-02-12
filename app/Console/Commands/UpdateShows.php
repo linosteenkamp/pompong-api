@@ -41,7 +41,7 @@ class UpdateShows extends LoadData
 //        $this->sickRage->clearHistory();
 
         foreach ($data['data'] as $value) {
-            if (Show::where(id, '=', $value['tvdbid'])->exists()) {
+            if (Show::where('id', '=', $value['tvdbid'])->exists()) {
                 $this->updateEpisode($value['tvdbid'],$value['season'],$value['episode']);
             } else {
                 $this->updateShow($value['tvdbid']);
