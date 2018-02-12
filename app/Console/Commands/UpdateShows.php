@@ -2,6 +2,8 @@
 
 namespace pompong\Console\Commands;
 
+use pompong\Models\Show;
+
 class UpdateShows extends LoadData
 {
     /**
@@ -36,10 +38,14 @@ class UpdateShows extends LoadData
     public function handle()
     {
         $data = $this->sickRage->getHistory();
-        $this->sickRage->clearHistory();
+//        $this->sickRage->clearHistory();
 
         foreach ($data['data'] as $value) {
-            $this->updateShow($value['tvdbid']);
+            if (Show::where(id, '=', $value['tvdbid'])->exists()) {
+                $this->updateEpisode($value['tvdbid'],$value['season'],$value['episode']);
+            } else {
+                $this->updateShow($value['tvdbid']);
+            }
         }
 
         return true;

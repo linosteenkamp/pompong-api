@@ -159,27 +159,31 @@ class LoadData extends Command
             $seasonData = $this->sickRage->getSeasons($tvdbid, $season_no);
 
             foreach ($seasonData['data'] as $episode_no => $value) {
-                $episodeData = $this->sickRage->getEpisode($tvdbid, $season_no, $episode_no);
-
-                $episode = Episode::firstOrNew([
-                    'show_id' => $tvdbid,
-                    'season' => $season_no,
-                    'episode_no' => $episode_no,
-                ]);
-
-                $episode->show_id = $tvdbid;
-                $episode->season = $season_no;
-                $episode->episode_no = $episode_no;
-                $episode->name = $episodeData['data']['name'];
-                $episode->status = $episodeData['data']['status'];
-                $episode->airdate = $episodeData['data']['airdate'];
-                $episode->description = ($episodeData['data']['description'] ?: ' ');
-                $episode->file_size = $episodeData['data']['file_size'];
-                $episode->location = $episodeData['data']['location'];
-
-                $episode->save();
+                $this->updateEpisode($tvdbid, $season_no, $episode_no);
             }
         }
+    }
+
+    protected function updateEpisode($tvdbid, $season_no, $episode_no) {
+        $episodeData = $this->sickRage->getEpisode($tvdbid, $season_no, $episode_no);
+
+        $episode = Episode::firstOrNew([
+            'show_id' => $tvdbid,
+            'season' => $season_no,
+            'episode_no' => $episode_no,
+        ]);
+
+        $episode->show_id = $tvdbid;
+        $episode->season = $season_no;
+        $episode->episode_no = $episode_no;
+        $episode->name = $episodeData['data']['name'];
+        $episode->status = $episodeData['data']['status'];
+        $episode->airdate = $episodeData['data']['airdate'];
+        $episode->description = ($episodeData['data']['description'] ?: ' ');
+        $episode->file_size = $episodeData['data']['file_size'];
+        $episode->location = $episodeData['data']['location'];
+
+        $episode->save();
     }
 
 }

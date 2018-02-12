@@ -35,7 +35,5 @@ class TheTvDb
         } else {
             return null;
         }
-
     }
-
 }
