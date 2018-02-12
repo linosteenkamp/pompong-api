@@ -159,13 +159,17 @@ class LoadData extends Command
             $seasonData = $this->sickRage->getSeasons($tvdbid, $season_no);
 
             foreach ($seasonData['data'] as $episode_no => $value) {
-                $this->updateEpisode($tvdbid, $season_no, $episode_no);
+                $this->updateEpisode($tvdbid, $season_no, $episode_no, false);
             }
         }
     }
 
-    protected function updateEpisode($tvdbid, $season_no, $episode_no) {
+    protected function updateEpisode($tvdbid, $season_no, $episode_no, $verbose = true) {
         $episodeData = $this->sickRage->getEpisode($tvdbid, $season_no, $episode_no);
+
+        if ($verbose) {
+            echo("Add Episode " . $episode_no . ' to ' . $episodeData['data']['show_name'] . "\r\n");
+        }
 
         $episode = Episode::firstOrNew([
             'show_id' => $tvdbid,
