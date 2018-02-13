@@ -169,7 +169,7 @@ class LoadData extends Command
 
         if ($verbose) {
             $show = $this->sickRage->getShow($tvdbid);
-            echo("Add Episode " . $episode_no . ' Season ' . $season_no . ' to ' . $show['data']['show_name'] . "\r\n");
+            echo("Add S".sprintf('%02d', $season_no).'E'.sprintf('%02d', $episode_no). ' to '.$show['data']['show_name']."\r\n");
         }
 
         $episode = Episode::firstOrNew([
