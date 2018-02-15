@@ -66,7 +66,7 @@ class LoadData extends Command
     protected function updateShow($showId) {
         $showData = $this->sickRage->getShow($showId);
 
-        echo(date("Y-m-d H:i:s") . " Updating " . $showData['data']['show_name'] . "\r\n");
+        echo(date("Y-m-d H:i:s") . " Updating: " . $showData['data']['show_name'] . "\r\n");
         if (! array_key_exists('error_msg', $showData['data'])) {
             $show = Show::firstOrNew(['id' => $showId]);
 
@@ -94,7 +94,7 @@ class LoadData extends Command
 
     private function augmentShow($showId, &$show)
     {
-        echo(date("Y-m-d H:i:s") . " Augmenting " . $show->show_name . "\r\n");
+        echo(date("Y-m-d H:i:s") . " Augmenting: " . $show->show_name . "\r\n");
 
         $tvShow = $this->theTvDb->getSeries($showId);
 
