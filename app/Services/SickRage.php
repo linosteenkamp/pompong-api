@@ -27,7 +27,7 @@ class SickRage
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
-                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r") . "\r\n");
                 return null;
             }
         }
@@ -41,7 +41,7 @@ class SickRage
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
-                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r") . "\r\n");
                 return null;
             }
         }
@@ -55,7 +55,7 @@ class SickRage
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
-                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r") . "\r\n");
                 return null;
             }
         }
@@ -70,7 +70,7 @@ class SickRage
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
-                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r") . "\r\n");
                 return null;
             }
         }
@@ -84,7 +84,7 @@ class SickRage
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
-                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r") . "\r\n");
                 return null;
             }
         }
@@ -98,7 +98,7 @@ class SickRage
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
-                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r") . "\r\n");
                 return null;
             }
         }
