@@ -79,7 +79,8 @@ class SickRage
             $response = $this->client->request('GET', '?cmd=history&limit=0&type=downloaded');
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                echo(date("Y-m-d H:i:s") . " " . Psr7\str($e->getResponse()) . "\r\n");
+                echo(date("Y-m-d H:i:s") . " Request: " . Psr7\str($e->getRequest()) . "\r\n");
+                echo(date("Y-m-d H:i:s") . " Response: " . Psr7\str($e->getResponse()) . "\r\n");
                 return null;
             }
         }
