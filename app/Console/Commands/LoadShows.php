@@ -42,13 +42,17 @@ class LoadShows extends LoadData
         $data = $this->sickRage->getShows();
         $show_ids = array();
 
-        foreach ($data['data'] as $value) {
-            array_push($show_ids, $value['tvdbid']);
-            $this->updateShow($value['tvdbid']);
+        if ($data) {
+            foreach ($data['data'] as $value) {
+                array_push($show_ids, $value['tvdbid']);
+                $this->updateShow($value['tvdbid']);
+            }
+
+            Show::whereNotIn('id', $show_ids)->delete();
+
+            return true;
         }
 
-        Show::whereNotIn('id', $show_ids)->delete();
-
-        return true;
+        return false;
     }
 }
