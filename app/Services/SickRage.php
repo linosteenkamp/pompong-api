@@ -81,6 +81,7 @@ class SickRage
             if ($e->hasResponse()) {
 //                echo(date("Y-m-d H:i:s") . " Request: " . Psr7\str($e->getRequest()) . "\r\n");
                 $err = Psr7\str($e->getResponse());
+                dd($err);
                 echo(date("Y-m-d H:i:s") . " Response: " . $err['Response'] . "\r\n");
                 return null;
             }
