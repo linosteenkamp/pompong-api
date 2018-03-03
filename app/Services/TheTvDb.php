@@ -3,6 +3,8 @@
 namespace pompong\Services;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\RequestException;
 /**
  * Class TheTvDb
  *
@@ -20,11 +22,18 @@ class TheTvDb
     }
 
     function getSeries($show_id) {
-        $result = $this->client->request(
-            'GET',
-            'series/' . $show_id . '/en.xml',
-            ['http_errors' => false]
-        );
+        try {
+            $result = $this->client->request(
+                'GET',
+                'series/' . $show_id . '/en.xml',
+                ['http_errors' => false]
+            );
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                echo(date("Y-m-d H:i:s") . " " . Psr7\str($e->getResponse()) . "\r\n");
+                return null;
+            }
+        }
 
         if ($result->getStatusCode() == 200) {
             $body = $result->getBody();
