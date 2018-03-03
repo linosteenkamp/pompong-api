@@ -80,7 +80,8 @@ class SickRage
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
 //                echo(date("Y-m-d H:i:s") . " Request: " . Psr7\str($e->getRequest()) . "\r\n");
-                echo(date("Y-m-d H:i:s") . " Response: " . Psr7\str($e->getResponse()->Response) . "\r\n");
+                $err = Psr7\str($e->getResponse()->Response);
+                echo(date("Y-m-d H:i:s") . " Response: " . $err->Response . "\r\n");
                 return null;
             }
         }
