@@ -30,7 +30,8 @@ class TheTvDb
             );
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                echo(date("Y-m-d H:i:s") . " " . Psr7\str($e->getResponse()) . "\r\n");
+                $err = Psr7\str($e->getResponse());
+                echo(date("Y-m-d H:i:s") . " API Error: " . strtok($err, "\r") . "\r\n");
                 return null;
             }
         }
