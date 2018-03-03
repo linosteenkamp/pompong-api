@@ -26,7 +26,8 @@ class SickRage
             $response = $this->client->request('GET', '?cmd=shows');
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                echo(date("Y-m-d H:i:s") . " " . Psr7\str($e->getResponse()) . "\r\n");
+                $err = Psr7\str($e->getResponse());
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
                 return null;
             }
         }
@@ -39,7 +40,8 @@ class SickRage
             $response = $this->client->request('GET', '?cmd=show&tvdbid='.$showId);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                echo(date("Y-m-d H:i:s") . " " . Psr7\str($e->getResponse()) . "\r\n");
+                $err = Psr7\str($e->getResponse());
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
                 return null;
             }
         }
@@ -52,7 +54,8 @@ class SickRage
             $response = $this->client->request('GET', '?cmd=show.seasons&tvdbid='. $showId . '&season=' . $season);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                echo(date("Y-m-d H:i:s") . " " . Psr7\str($e->getResponse()) . "\r\n");
+                $err = Psr7\str($e->getResponse());
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
                 return null;
             }
         }
@@ -66,7 +69,8 @@ class SickRage
             $response = $this->client->request('GET', '?cmd=episode&tvdbid='. $showId . '&season=' . $season . '&episode='. $episode .'&full_path=1');
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                echo(date("Y-m-d H:i:s") . " " . Psr7\str($e->getResponse()) . "\r\n");
+                $err = Psr7\str($e->getResponse());
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
                 return null;
             }
         }
@@ -79,10 +83,8 @@ class SickRage
             $response = $this->client->request('GET', '?cmd=history&limit=0&type=downloaded');
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-//                echo(date("Y-m-d H:i:s") . " Request: " . Psr7\str($e->getRequest()) . "\r\n");
                 $err = Psr7\str($e->getResponse());
-                dd(strtok($err, "\n"));
-                echo(date("Y-m-d H:i:s") . " Response: " . $err['Response'] . "\r\n");
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
                 return null;
             }
         }
@@ -95,7 +97,8 @@ class SickRage
             $response = $this->client->request('GET', '?cmd=history.clear');
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                echo(date("Y-m-d H:i:s") . " " . Psr7\str($e->getResponse()) . "\r\n");
+                $err = Psr7\str($e->getResponse());
+                echo(date("Y-m-d H:i:s") . " " . strtok($err, "\r"));
                 return null;
             }
         }
