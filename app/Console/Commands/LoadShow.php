@@ -37,7 +37,7 @@ class LoadShow extends LoadData
      */
     public function handle()
     {
-        $tvdbid = $this->ask('What is the tvdbid?');
+        $tvdbid = $this->ask('tvdbid?');
 
         $this->updateShow($tvdbid);
 
