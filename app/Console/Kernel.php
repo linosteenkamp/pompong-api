@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\LoadShows::class,
-        Commands\UpdateShows::class
+        Commands\UpdateShows::class,
+        Commands\LoadShow::class
     ];
 
     /**
