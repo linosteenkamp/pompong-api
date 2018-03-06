@@ -22,7 +22,7 @@ class LoadShow extends LoadData
      *
      * @var string
      */
-    protected $description = 'Full (re)load of all SickBeard shows into pompong';
+    protected $description = 'Full (re)load of a specified show into pompong';
 
     public function __construct()
     {
