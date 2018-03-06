@@ -15,7 +15,7 @@ class LoadShow extends LoadData
      *
      * @var string
      */
-    protected $signature = 'pompong:load-shows';
+    protected $signature = 'pompong:load-show';
 
     /**
      * The console command description.
