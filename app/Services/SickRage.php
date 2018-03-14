@@ -24,6 +24,7 @@ class SickRage
     public function getShows() {
         try {
             $response = $this->client->request('GET', '?cmd=shows');
+            return json_decode($response->getBody(), true);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
@@ -31,13 +32,12 @@ class SickRage
                 return null;
             }
         }
-
-        return json_decode($response->getBody(), true);
     }
 
     public function getShow($showId) {
         try {
             $response = $this->client->request('GET', '?cmd=show&tvdbid='.$showId);
+            return json_decode($response->getBody(), true);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
@@ -45,13 +45,12 @@ class SickRage
                 return null;
             }
         }
-
-        return json_decode($response->getBody(), true);
     }
 
     public function getSeasons($showId, $season) {
         try {
             $response = $this->client->request('GET', '?cmd=show.seasons&tvdbid='. $showId . '&season=' . $season);
+            return json_decode($response->getBody(), true);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
@@ -59,14 +58,13 @@ class SickRage
                 return null;
             }
         }
-
-        return json_decode($response->getBody(), true);
     }
 
     public function getEpisode($showId, $season, $episode)
     {
         try {
             $response = $this->client->request('GET', '?cmd=episode&tvdbid='. $showId . '&season=' . $season . '&episode='. $episode .'&full_path=1');
+            return json_decode($response->getBody(), true);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
@@ -74,13 +72,12 @@ class SickRage
                 return null;
             }
         }
-
-        return json_decode($response->getBody(), true);
     }
 
     public function getHistory() {
         try {
             $response = $this->client->request('GET', '?cmd=history&limit=0&type=downloaded');
+            return json_decode($response->getBody(), true);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
@@ -88,13 +85,12 @@ class SickRage
                 return null;
             }
         }
-
-        return json_decode($response->getBody(), true);
     }
 
     public function clearHistory() {
         try {
             $response = $this->client->request('GET', '?cmd=history.clear');
+            return json_decode($response->getBody(), true);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $err = Psr7\str($e->getResponse());
@@ -102,8 +98,5 @@ class SickRage
                 return null;
             }
         }
-
-        return json_decode($response->getBody(), true);
     }
-
 }
